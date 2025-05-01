@@ -47,7 +47,7 @@ connectionDetails <- Eunomia::getEunomiaConnectionDetails()
 
 ##=========== END OF INPUTS ==========
 analysisSpecifications <- ParallelLogger::loadSettingsFromJson(
-  fileName = "inst/sampleStudy/sampleStudyAnalysisSpecification.json"
+  fileName = "inst/cuimc/sampleStudyAnalysisSpecification.json"
 )
 
 executionSettings <- Strategus::createCdmExecutionSettings(

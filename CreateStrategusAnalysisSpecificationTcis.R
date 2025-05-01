@@ -29,21 +29,27 @@ cohortDefinitionSet <- CohortGenerator::getCohortDefinitionSet(
   sqlFolder = "inst/sampleStudy/sql/sql_server"
 )
 
+# Re-number cohorts
+cohortDefinitionSet[cohortDefinitionSet$cohortId == 20126,]$cohortId <- 1 #ACE inhibitor
+cohortDefinitionSet[cohortDefinitionSet$cohortId == 20127,]$cohortId <- 2 #Diuretic
+cohortDefinitionSet[cohortDefinitionSet$cohortId == 20128,]$cohortId <- 3 #Hypertensive disorder
+
+
 tcis <- list(
   #standard analyses that would be performed during routine signal detection
   list(
-    targetId = 20126, # Ace inhibitor
-    comparatorId = 20127, # Diuretic
-    indicationId = 20128, # Hypertensive disorder
+    targetId = 1, # Ace inhibitor
+    comparatorId = 2, # Diuretic
+    indicationId = 3, # Hypertensive disorder
     excludedCovariateConceptIds = c(
       21601783, 
       21601461
     ) 
   ),
   list(
-    targetId = 20126, # Ace inhibitor
-    comparatorId = 20127, # Diuretic
-    indicationId = 20128, # Hypertensive disorder
+    targetId = 1, # Ace inhibitor
+    comparatorId = 2, # Diuretic
+    indicationId = 3, # Hypertensive disorder
     excludedCovariateConceptIds = c(
       21601783, 
       21601461
@@ -52,7 +58,7 @@ tcis <- list(
 )
 
 # These are the cohorts we'd like to used as subsets for all T/C's
-cohortSubsets <- c(20126, 20127)
+cohortSubsets <- c(1, 2)
 ageGroups <- list(
   list(
     minAge = 0,
@@ -238,7 +244,7 @@ for (j in seq_along(cohortSubsets)) {
     startWindow = CohortGenerator::createSubsetCohortWindow(-99999, 0, "cohortStart"),
     endWindow = CohortGenerator::createSubsetCohortWindow(0, 99999, "cohortStart")
   )
-  
+
   # Also create restricted version of indication cohort:
   subsetDef <- CohortGenerator::createCohortSubsetDefinition(
     name = "",
@@ -246,12 +252,12 @@ for (j in seq_along(cohortSubsets)) {
     subsetOperators = subsetOperators,
     identifierExpression = "targetId * 10 + definitionId"
   )
-  
+
   cohortDefinitionSet <- cohortDefinitionSet %>%
     CohortGenerator::addCohortSubsetDefinition(
       cohortSubsetDefintion = subsetDef,
       targetCohortIds = targetCohortsWithIndicationIds$cohortId
-    ) 
+    )
 }
 
 # Age groups
@@ -262,7 +268,7 @@ for (j in 1:length(ageGroups)) {
     ageMin = ageGroups[[j]]$minAge,
     ageMax = ageGroups[[j]]$maxAge
   )
-  
+
   # Also create restricted version of indication cohort:
   subsetDef <- CohortGenerator::createCohortSubsetDefinition(
     name = "",
@@ -270,12 +276,12 @@ for (j in 1:length(ageGroups)) {
     subsetOperators = subsetOperators,
     identifierExpression = "targetId * 10 + definitionId"
   )
-  
+
   cohortDefinitionSet <- cohortDefinitionSet %>%
     CohortGenerator::addCohortSubsetDefinition(
       cohortSubsetDefintion = subsetDef,
       targetCohortIds = targetCohortsWithIndicationIds$cohortId
-    ) 
+    )
 }
 
 # Gender
@@ -286,7 +292,7 @@ for (j in seq_along(genders)) {
   subsetOperators[[length(subsetOperators) + 1]] <- CohortGenerator::createDemographicSubset(
     gender = genders[j]
   )
-  
+
   # Also create restricted version of indication cohort:
   subsetDef <- CohortGenerator::createCohortSubsetDefinition(
     name = "",
@@ -294,12 +300,12 @@ for (j in seq_along(genders)) {
     subsetOperators = subsetOperators,
     identifierExpression = "targetId * 10 + definitionId"
   )
-  
+
   cohortDefinitionSet <- cohortDefinitionSet %>%
     CohortGenerator::addCohortSubsetDefinition(
       cohortSubsetDefintion = subsetDef,
       targetCohortIds = targetCohortsWithIndicationIds$cohortId
-    ) 
+    )
 }
 
 
