@@ -81,11 +81,11 @@ outcomes <- tibble(
 
 # Time-at-risks (TARs) for the outcomes of interest in your study
 timeAtRisks <- tibble(
-  label = c("On treatment", "On treatment"),
-  riskWindowStart  = c(1, 1),
-  startAnchor = c("cohort start", "cohort start"),
-  riskWindowEnd  = c(0, 0),
-  endAnchor = c("cohort end", "cohort end")
+  label = c("On treatment"),
+  riskWindowStart  = c(1),
+  startAnchor = c("cohort start"),
+  riskWindowEnd  = c(0),
+  endAnchor = c("cohort end")
 )
 # # Try to avoid intent-to-treat TARs for SCCS, or then at least disable calendar time spline:
 # sccsTimeAtRisks <- tibble(
@@ -149,7 +149,6 @@ for (i in seq_along(tcis)) {
 dfUniqueTcis <- unique(dfUniqueTcis)
 dfUniqueTcis$subsetDefinitionId <- 0 # Adding as a placeholder for loop below
 dfUniqueSubsetCriteria <- unique(dfUniqueTcis[,-1])
-
 for (i in 1:nrow(dfUniqueSubsetCriteria)) {
   uniqueSubsetCriteria <- dfUniqueSubsetCriteria[i,]
   dfCurrentTcis <- dfUniqueTcis[dfUniqueTcis$indicationId == uniqueSubsetCriteria$indicationId,]
@@ -204,6 +203,10 @@ for (i in 1:nrow(dfUniqueSubsetCriteria)) {
   }  
 }
 
+# Making a copy to use when adding CUIMC subgroups and
+# later setting up CM T/C combos
+dfOriginalUniqueTcis <- dfUniqueTcis
+
 # CUIMC subsets - apply to the T with I subgroup
 targetCohortsWithIndicationIds <- cohortDefinitionSet |>
   filter(isSubset == TRUE) |>
@@ -222,12 +225,22 @@ for (j in seq_along(cohortSubsets)) {
   )
   
   # Also create restricted version of indication cohort:
+  restrictedSubsetDefinitionId <- j + 30
   subsetDef <- CohortGenerator::createCohortSubsetDefinition(
     name = "",
-    definitionId = j + 20,
+    definitionId = restrictedSubsetDefinitionId,
     subsetOperators = subsetOperators,
     identifierExpression = "targetId * 10 + definitionId"
   )
+  
+  # Add this restricted version of the indication cohort 
+  # to the dfUniqueTcis list for all of the original 
+  # TCIS entries
+  dfUniqueTcis <- rbind(dfUniqueTcis,
+                        data.frame(
+                          dfOriginalUniqueTcis[, c("cohortId", "indicationId")],
+                          subsetDefinitionId = restrictedSubsetDefinitionId
+                        ))
   
   cohortDefinitionSet <- cohortDefinitionSet %>%
     CohortGenerator::addCohortSubsetDefinition(
@@ -246,13 +259,23 @@ for (j in seq_along(cohortSubsets)) {
   )
 
   # Also create restricted version of indication cohort:
+  complementSubsetDefinitionId <- j + 50
   subsetDef <- CohortGenerator::createCohortSubsetDefinition(
     name = "",
-    definitionId = j + 30,
+    definitionId = complementSubsetDefinitionId,
     subsetOperators = subsetOperators,
     identifierExpression = "targetId * 10 + definitionId"
   )
 
+  # Add this complement version of the indication cohort 
+  # to the dfUniqueTcis list for all of the original 
+  # TCIS entries
+  dfUniqueTcis <- rbind(dfUniqueTcis,
+                        data.frame(
+                          dfOriginalUniqueTcis[, c("cohortId", "indicationId")],
+                          subsetDefinitionId = complementSubsetDefinitionId
+                        ))
+  
   cohortDefinitionSet <- cohortDefinitionSet %>%
     CohortGenerator::addCohortSubsetDefinition(
       cohortSubsetDefintion = subsetDef,
@@ -269,14 +292,24 @@ for (j in 1:length(ageGroups)) {
     ageMax = ageGroups[[j]]$maxAge
   )
 
-  # Also create restricted version of indication cohort:
+  # Also create age restricted version of indication cohort:
+  ageRestrictedSubsetDefinitionId <- j + 70
   subsetDef <- CohortGenerator::createCohortSubsetDefinition(
     name = "",
-    definitionId = j + 40,
+    definitionId = ageRestrictedSubsetDefinitionId,
     subsetOperators = subsetOperators,
     identifierExpression = "targetId * 10 + definitionId"
   )
-
+  
+  # Add this age restricted version of the indication cohort 
+  # to the dfUniqueTcis list for all of the original 
+  # TCIS entries
+  dfUniqueTcis <- rbind(dfUniqueTcis,
+                        data.frame(
+                          dfOriginalUniqueTcis[, c("cohortId", "indicationId")],
+                          subsetDefinitionId = ageRestrictedSubsetDefinitionId
+                        ))
+  
   cohortDefinitionSet <- cohortDefinitionSet %>%
     CohortGenerator::addCohortSubsetDefinition(
       cohortSubsetDefintion = subsetDef,
@@ -294,12 +327,22 @@ for (j in seq_along(genders)) {
   )
 
   # Also create restricted version of indication cohort:
+  genderRestrictedSubsetDefinitionId <- j + 90
   subsetDef <- CohortGenerator::createCohortSubsetDefinition(
     name = "",
-    definitionId = j + 50,
+    definitionId = genderRestrictedSubsetDefinitionId,
     subsetOperators = subsetOperators,
     identifierExpression = "targetId * 10 + definitionId"
   )
+  
+  # Add this gender restricted version of the indication cohort 
+  # to the dfUniqueTcis list for all of the original 
+  # TCIS entries
+  dfUniqueTcis <- rbind(dfUniqueTcis,
+                        data.frame(
+                          dfOriginalUniqueTcis[, c("cohortId", "indicationId")],
+                          subsetDefinitionId = genderRestrictedSubsetDefinitionId
+                        ))
 
   cohortDefinitionSet <- cohortDefinitionSet %>%
     CohortGenerator::addCohortSubsetDefinition(
@@ -458,25 +501,57 @@ outcomeList <- append(
 targetComparatorOutcomesList <- list()
 for (i in seq_along(tcis)) {
   tci <- tcis[[i]]
-  # Get the subset definition ID that matches
-  # the target ID. The comparator will also use the same subset
-  # definition ID
-  currentSubsetDefinitionId <- dfUniqueTcis %>%
+  
+  # Filter to the T/C with I - Use the original
+  # unique Tcis for this since dfUniqueTcis will
+  # contain all of the nested subgroups
+  currentSubsetDefinitionId <- dfOriginalUniqueTcis %>%
     filter(cohortId == tci$targetId &
              indicationId == paste(tci$indicationId, collapse = ",")) %>%
     pull(subsetDefinitionId)
+  
   targetId <- cohortDefinitionSet %>%
     filter(subsetParent == tci$targetId & subsetDefinitionId == currentSubsetDefinitionId) %>%
     pull(cohortId)
   comparatorId <- cohortDefinitionSet %>% 
     filter(subsetParent == tci$comparatorId & subsetDefinitionId == currentSubsetDefinitionId) %>%
-    pull(cohortId)
-  targetComparatorOutcomesList[[i]] <- CohortMethod::createTargetComparatorOutcomes(
+    pull(cohortId)  
+  targetComparatorOutcomesList[[length(targetComparatorOutcomesList)+1]] <- CohortMethod::createTargetComparatorOutcomes(
     targetId = targetId,
     comparatorId = comparatorId,
     outcomes = outcomeList,
     excludedCovariateConceptIds = tci$excludedCovariateConceptIds
   )
+  
+  # We'll retain these T/C/Subset ids to use in the subsequent loop
+  parentSubsetId <- currentSubsetDefinitionId
+  parentTargetId <- targetId
+  parentComparatorId <- comparatorId
+
+  # Get the subset definition IDs that matches
+  # the target ID. The comparator will also use the same subset
+  # definition ID. Exclude the parentSubsetId from this list
+  subsetDefinitions <- dfUniqueTcis %>%
+    filter(cohortId == tci$targetId &
+             indicationId == paste(tci$indicationId, collapse = ",") &
+             subsetDefinitionId !=  parentSubsetId) %>%
+    pull(subsetDefinitionId)
+  
+  for (j in seq_along(subsetDefinitions)) {
+    currentSubsetDefinitionId <- subsetDefinitions[j]
+    targetId <- cohortDefinitionSet %>%
+      filter(subsetParent == parentTargetId & subsetDefinitionId == currentSubsetDefinitionId) %>%
+      pull(cohortId)
+    comparatorId <- cohortDefinitionSet %>% 
+      filter(subsetParent == parentComparatorId & subsetDefinitionId == currentSubsetDefinitionId) %>%
+      pull(cohortId)
+    targetComparatorOutcomesList[[length(targetComparatorOutcomesList)+1]] <- CohortMethod::createTargetComparatorOutcomes(
+      targetId = targetId,
+      comparatorId = comparatorId,
+      outcomes = outcomeList,
+      excludedCovariateConceptIds = tci$excludedCovariateConceptIds
+    )    
+  }
 }
 getDbCohortMethodDataArgs <- CohortMethod::createGetDbCohortMethodDataArgs(
   restrictToCommonPeriod = TRUE,
