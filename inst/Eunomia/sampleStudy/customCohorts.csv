@@ -1,0 +1,3 @@
+cohort_definition_id,cohort_name,description,json,sql_command,subset_parent,is_subset,subset_definition_id
+7001,Custom cohort - odd numbered patients,,{},,7001,FALSE,NA
+7002,Custom cohort - odd numbered patients,,{},,7002,FALSE,NA
