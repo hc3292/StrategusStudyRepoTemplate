@@ -24,30 +24,47 @@ library(Strategus)
 # study to retrieve the cohorts you downloaded as part of
 # DownloadCohorts.R
 cohortDefinitionSet <- CohortGenerator::getCohortDefinitionSet(
-  settingsFileName = "inst/sampleStudy/Cohorts.csv",
-  jsonFolder = "inst/sampleStudy/cohorts",
-  sqlFolder = "inst/sampleStudy/sql/sql_server"
+  settingsFileName = "inst/UTI_Study/Cohorts.csv",
+  jsonFolder = "inst/UTI_Study/cohorts",
+  sqlFolder = "inst/UTI_Study/sql/sql_server"
 )
 
 tcis <- list(
   #standard analyses that would be performed during routine signal detection
   list(
-    targetId = 20126, # Ace inhibitor
-    comparatorId = 20127, # Diuretic
-    indicationId = 20128, # Hypertensive disorder
-    genderConceptIds = c(8507, 8532), # use valid genders (remove unknown)
-    minAge = NULL, # All ages In years. Can be NULL
-    maxAge = NULL, # All ages In years. Can be NULL
+    targetId = 11721 , #SGLT2is w/o metformin
+    comparatorId = 11722, #Sulfonylureas w/o metformin
+    indicationId = 11708, #T2DM
     excludedCovariateConceptIds = c(
-      21601783, 
-      21601461
-    ) 
+      1503297, #bigaunides
+      43526465,44785829,45774751,793293, #SGLT2is
+      1502855,1502809,1597756,1559684,1594973,1560171 #Sulfonylureas
+    )
+  )
+)
+
+ageGroups <- list(
+  list(
+    minAge = 0,
+    maxAge = 17
+  ),
+  list(
+    minAge = 18,
+    maxAge = 44
+  ),
+  list(
+    minAge = 45,
+    maxAge = 64
+  ),
+  list(
+    minAge = 65,
+    maxAge = 120
   )
 )
 
 outcomes <- tibble(
-  cohortId = c(20129, 20130), # AMI, Angioedema
-  cleanWindow = c(365, 365)
+  cohortId = c(11869),  # UTI
+  cleanWindow = c(365)
 )
 
 # Time-at-risks (TARs) for the outcomes of interest in your study
@@ -58,6 +75,7 @@ timeAtRisks <- tibble(
   riskWindowEnd  = c(0, 0),
   endAnchor = c("cohort end", "cohort end")
 )
+
 # Try to avoid intent-to-treat TARs for SCCS, or then at least disable calendar time spline:
 sccsTimeAtRisks <- tibble(
   label = c("On treatment", "On treatment"),
@@ -66,6 +84,7 @@ sccsTimeAtRisks <- tibble(
   riskWindowEnd  = c(0, 0),
   endAnchor = c("cohort end", "cohort end")
 )
+
 # Try to use fixed-time TARs for patient-level prediction:
 plpTimeAtRisks <- tibble(
   riskWindowStart  = c(1, 1),
@@ -73,9 +92,10 @@ plpTimeAtRisks <- tibble(
   riskWindowEnd  = c(365, 365),
   endAnchor = c("cohort start", "cohort start"),
 )
+
 # If you are not restricting your study to a specific time window, 
 # please make these strings empty
-studyStartDate <- '20200101' #YYYYMMDD
+studyStartDate <- '20150101' #YYYYMMDD
 studyEndDate <- '20241231'   #YYYYMMDD
 # Some of the settings require study dates with hyphens
 studyStartDateWithHyphens <- gsub("(\\d{4})(\\d{2})(\\d{2})", "\\1-\\2-\\3", studyStartDate)
@@ -84,7 +104,7 @@ studyEndDateWithHyphens <- gsub("(\\d{4})(\\d{2})(\\d{2})", "\\1-\\2-\\3", study
 
 # Consider these settings for estimation  ----------------------------------------
 
-useCleanWindowForPriorOutcomeLookback <- FALSE # If FALSE, lookback window is all time prior, i.e., including only first events
+useCleanWindowForPriorOutcomeLookback <- TRUE # If FALSE, lookback window is all time prior, i.e., including only first events
 psMatchMaxRatio <- 1 # If bigger than 1, the outcome model will be conditioned on the matched set
 maxCohortSizeForFitting <- 250000 # Downsampled example study to 10000
 maxCohortSize <- maxCohortSizeForFitting
@@ -196,7 +216,7 @@ for (i in 1:nrow(dfUniqueSubsetCriteria)) {
 }
 
 negativeControlOutcomeCohortSet <- CohortGenerator::readCsv(
-  file = "inst/sampleStudy/negativeControlOutcomes.csv"
+  file = "inst/UTI_Study/negativeControlOutcomes.csv"
 )
 
 if (any(duplicated(cohortDefinitionSet$cohortId, negativeControlOutcomeCohortSet$cohortId))) {
@@ -696,10 +716,10 @@ analysisSpecifications <- Strategus::createEmptyAnalysisSpecificiations() |>
   Strategus::addModuleSpecifications(characterizationModuleSpecifications) |>
   Strategus::addModuleSpecifications(cohortIncidenceModuleSpecifications) |>
   Strategus::addModuleSpecifications(cohortMethodModuleSpecifications) |>
-  Strategus::addModuleSpecifications(selfControlledModuleSpecifications) |>
-  Strategus::addModuleSpecifications(plpModuleSpecifications)
+  Strategus::addModuleSpecifications(selfControlledModuleSpecifications) 
+  # Strategus::addModuleSpecifications(plpModuleSpecifications)
 
 ParallelLogger::saveSettingsToJson(
   analysisSpecifications, 
-  file.path("inst", "sampleStudy", "sampleStudyAnalysisSpecification.json")
+  file.path("inst", "UTI_Study", "AnalysisSpecification.json")
 )

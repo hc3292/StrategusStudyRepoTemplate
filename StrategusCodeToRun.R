@@ -17,12 +17,12 @@ Sys.setenv("_JAVA_OPTIONS"="-Xmx4g") # Sets the Java maximum heap space to 4GB
 Sys.setenv("VROOM_THREADS"=1) # Sets the number of threads to 1 to avoid deadlocks on file system
 
 ##=========== START OF INPUTS ==========
-cdmDatabaseSchema <- "main"
-workDatabaseSchema <- "main"
+cdmDatabaseSchema <- "ohdsi_cumc_2025q2r1_deid.dbo"
+workDatabaseSchema <- "ohdsi_cumc_2025q2r1_deid.results"
 outputLocation <- file.path(getwd(), "results")
-databaseName <- "Eunomia" # Only used as a folder name for results from the study
+databaseName <- "CUMC" # Only used as a folder name for results from the study
 minCellCount <- 5
-cohortTableName <- "sample_study"
+cohortTableName <- "ARPA_UTI_study"
 
 # Create the connection details for your CDM
 # More details on how to do this are found here:
@@ -34,20 +34,13 @@ cohortTableName <- "sample_study"
 #   password = Sys.getenv("DBMS_PASSWORD")
 # )
 
-# For this example we will use the Eunomia sample data 
-# set. This library is not installed by default so you
-# can install this by running:
-#
-# install.packages("Eunomia")
-connectionDetails <- Eunomia::getEunomiaConnectionDetails()
-
 # You can use this snippet to test your connection
 #conn <- DatabaseConnector::connect(connectionDetails)
 #DatabaseConnector::disconnect(conn)
 
 ##=========== END OF INPUTS ==========
 analysisSpecifications <- ParallelLogger::loadSettingsFromJson(
-  fileName = "inst/sampleStudy/sampleStudyAnalysisSpecification.json"
+  fileName = "inst/UTI_Study/AnalysisSpecification.json"
 )
 
 executionSettings <- Strategus::createCdmExecutionSettings(

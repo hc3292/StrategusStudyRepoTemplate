@@ -13,43 +13,48 @@
 # ##############################################################################
 
 library(dplyr)
-baseUrl <- "https://atlas-demo.ohdsi.org/WebAPI"
+baseUrl <- "https://nypdevops1.sis.nyp.org/api/WebAPI/"
 # Use this if your WebAPI instance has security enables
-# ROhdsiWebApi::authorizeWebApi(
+#ROhdsiWebApi::authorizeWebApi(
 #   baseUrl = baseUrl,
 #   authMethod = "windows"
 # )
 cohortDefinitionSet <- ROhdsiWebApi::exportCohortDefinitionSet(
   baseUrl = baseUrl,
   cohortIds = c(
-    1778211, # All exposures - celecoxib
-    1790989, # All exposures - diclofenac
-    1780946 # GI Bleed
+    11721, # sglt2i
+    11722, # sulfonylurea
+    11708, # T2DM
+    11869 #UTI
   ),
   generateStats = TRUE
 )
 
 # Rename cohorts
-cohortDefinitionSet[cohortDefinitionSet$cohortId == 1778211,]$cohortName <- "celecoxib"
-cohortDefinitionSet[cohortDefinitionSet$cohortId == 1790989,]$cohortName <- "diclofenac"
-cohortDefinitionSet[cohortDefinitionSet$cohortId == 1780946,]$cohortName <- "GI Bleed"
+cohortDefinitionSet[cohortDefinitionSet$cohortId == 11721,]$cohortName <- "SGLT2i"
+cohortDefinitionSet[cohortDefinitionSet$cohortId == 11722,]$cohortName <- "SU"
+cohortDefinitionSet[cohortDefinitionSet$cohortId == 11708,]$cohortName <- "T2DM"
+cohortDefinitionSet[cohortDefinitionSet$cohortId == 11869,]$cohortName <- "UTI"
 
 # Re-number cohorts
-cohortDefinitionSet[cohortDefinitionSet$cohortId == 1778211,]$cohortId <- 1
-cohortDefinitionSet[cohortDefinitionSet$cohortId == 1790989,]$cohortId <- 2
-cohortDefinitionSet[cohortDefinitionSet$cohortId == 1780946,]$cohortId <- 3
+#cohortDefinitionSet[cohortDefinitionSet$cohortId == 11721,]$cohortId <- 1
+#cohortDefinitionSet[cohortDefinitionSet$cohortId == 11722,]$cohortId <- 2
+#cohortDefinitionSet[cohortDefinitionSet$cohortId == 11708,]$cohortId <- 3
+#cohortDefinitionSet[cohortDefinitionSet$cohortId == 11869,]$cohortId <- 4
+
 
 # Save the cohort definition set
 # NOTE: Update settingsFileName, jsonFolder and sqlFolder
 # for your study.
 CohortGenerator::saveCohortDefinitionSet(
   cohortDefinitionSet = cohortDefinitionSet,
-  settingsFileName = "inst/sampleStudy/Cohorts.csv",
-  jsonFolder = "inst/sampleStudy/cohorts",
-  sqlFolder = "inst/sampleStudy/sql/sql_server",
+  settingsFileName = "inst/UTI_Study/Cohorts.csv",
+  jsonFolder = "inst/UTI_Study/cohorts",
+  sqlFolder = "inst/UTI_Study/sql/sql_server",
 )
 
-
+# switch it back to get this
+baseUrl = "https://atlas-demo.ohdsi.org/WebAPI"
 # Download and save the negative control outcomes
 negativeControlOutcomeCohortSet <- ROhdsiWebApi::getConceptSetDefinition(
   conceptSetId = 1885090,
@@ -69,6 +74,6 @@ negativeControlOutcomeCohortSet <- ROhdsiWebApi::getConceptSetDefinition(
 # NOTE: Update file location for your study.
 CohortGenerator::writeCsv(
   x = negativeControlOutcomeCohortSet,
-  file = "inst/sampleStudy/negativeControlOutcomes.csv",
+  file = "inst/UTI_Study/negativeControlOutcomes.csv",
   warnOnFileNameCaseMismatch = F
 )
