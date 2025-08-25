@@ -1,0 +1,767 @@
+{
+	"cdmVersionRange" : ">=5.0.0",
+	"PrimaryCriteria" : {
+		"CriteriaList" : [
+			{
+				"DrugExposure" : {
+					"CodesetId" : 0,
+					"DrugTypeExclude" : false
+				}
+			}
+		],
+		"ObservationWindow" : {
+			"PriorDays" : 365,
+			"PostDays" : 0
+		},
+		"PrimaryCriteriaLimit" : {
+			"Type" : "First"
+		}
+	},
+	"ConceptSets" : [
+		{
+			"id" : 0,
+			"name" : "Sulfonylurea",
+			"expression" : {
+				"items" : [
+					{
+						"concept" : {
+							"CONCEPT_ID" : 1502855,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 1502809,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 1597756,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 1559684,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 1594973,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 1560171,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					}
+				]
+			}
+		},
+		{
+			"id" : 1,
+			"name" : "Alpha-Glucosidase Inhibitor",
+			"expression" : {
+				"items" : [
+					{
+						"concept" : {
+							"CONCEPT_ID" : 1510202,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					}
+				]
+			}
+		},
+		{
+			"id" : 2,
+			"name" : "DPP- 4 Inhibitors",
+			"expression" : {
+				"items" : [
+					{
+						"concept" : {
+							"CONCEPT_ID" : 1580747,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 40166035,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 40239216,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 43013884,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					}
+				]
+			}
+		},
+		{
+			"id" : 3,
+			"name" : "GIP-GLP-1 dual agonist",
+			"expression" : {
+				"items" : [
+					{
+						"concept" : {
+							"CONCEPT_ID" : 779705,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					}
+				]
+			}
+		},
+		{
+			"id" : 4,
+			"name" : "GLP-1 Receptor Agonists",
+			"expression" : {
+				"items" : [
+					{
+						"concept" : {
+							"CONCEPT_ID" : 45774435,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 1583722,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 44506754,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 40170911,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 793143,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					}
+				]
+			}
+		},
+		{
+			"id" : 5,
+			"name" : "Meglitinide",
+			"expression" : {
+				"items" : [
+					{
+						"concept" : {
+							"CONCEPT_ID" : 1516766,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 1502826,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					}
+				]
+			}
+		},
+		{
+			"id" : 6,
+			"name" : "SGLT2 Inhibitors",
+			"expression" : {
+				"items" : [
+					{
+						"concept" : {
+							"CONCEPT_ID" : 43526465,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 44785829,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 45774751,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					},
+					{
+						"concept" : {
+							"CONCEPT_ID" : 793293,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					}
+				]
+			}
+		},
+		{
+			"id" : 7,
+			"name" : "Thiazolidinediones",
+			"expression" : {
+				"items" : [
+					{
+						"concept" : {
+							"CONCEPT_ID" : 1525215,
+							"CONCEPT_NAME" : "",
+							"STANDARD_CONCEPT" : "",
+							"STANDARD_CONCEPT_CAPTION" : "Unknown",
+							"INVALID_REASON" : "",
+							"INVALID_REASON_CAPTION" : "Unknown",
+							"CONCEPT_CODE" : "",
+							"DOMAIN_ID" : "",
+							"VOCABULARY_ID" : "",
+							"CONCEPT_CLASS_ID" : ""
+						},
+						"isExcluded" : false,
+						"includeDescendants" : true,
+						"includeMapped" : false
+					}
+				]
+			}
+		}
+	],
+	"QualifiedLimit" : {
+		"Type" : "First"
+	},
+	"ExpressionLimit" : {
+		"Type" : "First"
+	},
+	"InclusionRules" : [
+		{
+			"name" : "No prior Alpha-Glucosidase Inhibitor",
+			"expression" : {
+				"Type" : "ALL",
+				"CriteriaList" : [
+					{
+						"Criteria" : {
+							"DrugExposure" : {
+								"CodesetId" : 1,
+								"DrugTypeExclude" : false
+							}
+						},
+						"StartWindow" : {
+							"Start" : {
+								"Coeff" : -1
+							},
+							"End" : {
+								"Days" : 0,
+								"Coeff" : -1
+							},
+							"UseIndexEnd" : false,
+							"UseEventEnd" : false
+						},
+						"RestrictVisit" : false,
+						"IgnoreObservationPeriod" : true,
+						"Occurrence" : {
+							"Type" : 0,
+							"Count" : 0,
+							"IsDistinct" : false
+						}
+					}
+				],
+				"DemographicCriteriaList" : [],
+				"Groups" : []
+			}
+		},
+		{
+			"name" : "No prior DPP- 4 Inhibitors",
+			"expression" : {
+				"Type" : "ALL",
+				"CriteriaList" : [
+					{
+						"Criteria" : {
+							"DrugExposure" : {
+								"CodesetId" : 2,
+								"DrugTypeExclude" : false
+							}
+						},
+						"StartWindow" : {
+							"Start" : {
+								"Coeff" : -1
+							},
+							"End" : {
+								"Days" : 0,
+								"Coeff" : -1
+							},
+							"UseIndexEnd" : false,
+							"UseEventEnd" : false
+						},
+						"RestrictVisit" : false,
+						"IgnoreObservationPeriod" : true,
+						"Occurrence" : {
+							"Type" : 0,
+							"Count" : 0,
+							"IsDistinct" : false
+						}
+					}
+				],
+				"DemographicCriteriaList" : [],
+				"Groups" : []
+			}
+		},
+		{
+			"name" : "No prior GIP-GLP-1 dual agonist",
+			"expression" : {
+				"Type" : "ALL",
+				"CriteriaList" : [
+					{
+						"Criteria" : {
+							"DrugExposure" : {
+								"CodesetId" : 3,
+								"DrugTypeExclude" : false
+							}
+						},
+						"StartWindow" : {
+							"Start" : {
+								"Coeff" : -1
+							},
+							"End" : {
+								"Days" : 0,
+								"Coeff" : -1
+							},
+							"UseIndexEnd" : false,
+							"UseEventEnd" : false
+						},
+						"RestrictVisit" : false,
+						"IgnoreObservationPeriod" : true,
+						"Occurrence" : {
+							"Type" : 0,
+							"Count" : 0,
+							"IsDistinct" : false
+						}
+					}
+				],
+				"DemographicCriteriaList" : [],
+				"Groups" : []
+			}
+		},
+		{
+			"name" : "No prior GLP-1 Receptor Agonists",
+			"expression" : {
+				"Type" : "ALL",
+				"CriteriaList" : [
+					{
+						"Criteria" : {
+							"DrugExposure" : {
+								"CodesetId" : 4,
+								"DrugTypeExclude" : false
+							}
+						},
+						"StartWindow" : {
+							"Start" : {
+								"Coeff" : -1
+							},
+							"End" : {
+								"Days" : 0,
+								"Coeff" : -1
+							},
+							"UseIndexEnd" : false,
+							"UseEventEnd" : false
+						},
+						"RestrictVisit" : false,
+						"IgnoreObservationPeriod" : true,
+						"Occurrence" : {
+							"Type" : 0,
+							"Count" : 0,
+							"IsDistinct" : false
+						}
+					}
+				],
+				"DemographicCriteriaList" : [],
+				"Groups" : []
+			}
+		},
+		{
+			"name" : "No prior Meglitinide",
+			"expression" : {
+				"Type" : "ALL",
+				"CriteriaList" : [
+					{
+						"Criteria" : {
+							"DrugExposure" : {
+								"CodesetId" : 5,
+								"DrugTypeExclude" : false
+							}
+						},
+						"StartWindow" : {
+							"Start" : {
+								"Coeff" : -1
+							},
+							"End" : {
+								"Days" : 0,
+								"Coeff" : -1
+							},
+							"UseIndexEnd" : false,
+							"UseEventEnd" : false
+						},
+						"RestrictVisit" : false,
+						"IgnoreObservationPeriod" : true,
+						"Occurrence" : {
+							"Type" : 0,
+							"Count" : 0,
+							"IsDistinct" : false
+						}
+					}
+				],
+				"DemographicCriteriaList" : [],
+				"Groups" : []
+			}
+		},
+		{
+			"name" : "No prior SGLT2 Inhibitors",
+			"expression" : {
+				"Type" : "ALL",
+				"CriteriaList" : [
+					{
+						"Criteria" : {
+							"DrugExposure" : {
+								"CodesetId" : 6,
+								"DrugTypeExclude" : false
+							}
+						},
+						"StartWindow" : {
+							"Start" : {
+								"Coeff" : -1
+							},
+							"End" : {
+								"Days" : 0,
+								"Coeff" : -1
+							},
+							"UseIndexEnd" : false,
+							"UseEventEnd" : false
+						},
+						"RestrictVisit" : false,
+						"IgnoreObservationPeriod" : true,
+						"Occurrence" : {
+							"Type" : 0,
+							"Count" : 0,
+							"IsDistinct" : false
+						}
+					}
+				],
+				"DemographicCriteriaList" : [],
+				"Groups" : []
+			}
+		},
+		{
+			"name" : "No prior Thiazolidinediones",
+			"expression" : {
+				"Type" : "ALL",
+				"CriteriaList" : [
+					{
+						"Criteria" : {
+							"DrugExposure" : {
+								"CodesetId" : 7,
+								"DrugTypeExclude" : false
+							}
+						},
+						"StartWindow" : {
+							"Start" : {
+								"Coeff" : -1
+							},
+							"End" : {
+								"Days" : 0,
+								"Coeff" : -1
+							},
+							"UseIndexEnd" : false,
+							"UseEventEnd" : false
+						},
+						"RestrictVisit" : false,
+						"IgnoreObservationPeriod" : true,
+						"Occurrence" : {
+							"Type" : 0,
+							"Count" : 0,
+							"IsDistinct" : false
+						}
+					}
+				],
+				"DemographicCriteriaList" : [],
+				"Groups" : []
+			}
+		}
+	],
+	"EndStrategy" : {
+		"CustomEra" : {
+			"DrugCodesetId" : 0,
+			"GapDays" : 90,
+			"Offset" : 30
+		}
+	},
+	"CensoringCriteria" : [],
+	"CollapseSettings" : {
+		"CollapseType" : "ERA",
+		"EraPad" : 0
+	},
+	"CensorWindow" : {}
+}

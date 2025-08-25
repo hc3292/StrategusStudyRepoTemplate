@@ -32,13 +32,30 @@ cohortDefinitionSet <- CohortGenerator::getCohortDefinitionSet(
 tcis <- list(
   #standard analyses that would be performed during routine signal detection
   list(
-    targetId = 11721 , #SGLT2is w/o metformin
-    comparatorId = 11722, #Sulfonylureas w/o metformin
+    targetId = 11726 , #SGLT2is
+    comparatorId = 11725, #Sulfonylureas
     indicationId = 11708, #T2DM
     excludedCovariateConceptIds = c(
-      1503297, #bigaunides
-      43526465,44785829,45774751,793293, #SGLT2is
-      1502855,1502809,1597756,1559684,1594973,1560171 #Sulfonylureas
+      1502855,1502809,1597756,1559684,1594973,1560171, #Sulfonylureas
+      43526465,44785829,45774751,793293 #SGLT2is
+    )
+  ),
+  list(
+    targetId = 11726 , #SGLT2is
+    comparatorId = 11730, #DPP4i
+    indicationId = 11708, #T2DM
+    excludedCovariateConceptIds = c(
+      1580747,40166035,40239216,43013884, #DPP4i
+      43526465,44785829,45774751,793293 #SGLT2is
+    )
+  ),
+  list(
+    targetId = 11726 , #SGLT2is
+    comparatorId = 11728, #GLP1
+    indicationId = 11708, #T2DM
+    excludedCovariateConceptIds = c(
+      45774435,1583722,44506754,40170911,793143, #GLP1RA
+      43526465,44785829,45774751,793293 #SGLT2is
     )
   )
 )

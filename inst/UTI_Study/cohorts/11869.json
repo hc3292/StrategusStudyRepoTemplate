@@ -4,7 +4,7 @@
 		"CriteriaList" : [
 			{
 				"ConditionOccurrence" : {
-					"CodesetId" : 0
+					"CodesetId" : 2
 				}
 			}
 		],
@@ -18,8 +18,8 @@
 	},
 	"ConceptSets" : [
 		{
-			"id" : 0,
-			"name" : "Certain Urinary Tract Infections",
+			"id" : 1,
+			"name" : "UTI",
 			"expression" : {
 				"items" : [
 					{
@@ -52,7 +52,7 @@
 							"VOCABULARY_ID" : "SNOMED",
 							"CONCEPT_CLASS_ID" : "Clinical Finding"
 						},
-						"isExcluded" : true,
+						"isExcluded" : false,
 						"includeDescendants" : true,
 						"includeMapped" : false
 					},
@@ -86,7 +86,7 @@
 							"VOCABULARY_ID" : "SNOMED",
 							"CONCEPT_CLASS_ID" : "Clinical Finding"
 						},
-						"isExcluded" : true,
+						"isExcluded" : false,
 						"includeDescendants" : true,
 						"includeMapped" : false
 					},
@@ -616,25 +616,15 @@
 						"isExcluded" : true,
 						"includeDescendants" : true,
 						"includeMapped" : false
-					},
-					{
-						"concept" : {
-							"CONCEPT_ID" : 4060296,
-							"CONCEPT_NAME" : "Infections of the genital tract in pregnancy",
-							"STANDARD_CONCEPT" : "S",
-							"STANDARD_CONCEPT_CAPTION" : "Standard",
-							"INVALID_REASON" : "V",
-							"INVALID_REASON_CAPTION" : "Valid",
-							"CONCEPT_CODE" : "199112006",
-							"DOMAIN_ID" : "Condition",
-							"VOCABULARY_ID" : "SNOMED",
-							"CONCEPT_CLASS_ID" : "Clinical Finding"
-						},
-						"isExcluded" : true,
-						"includeDescendants" : false,
-						"includeMapped" : false
 					}
 				]
+			}
+		},
+		{
+			"id" : 2,
+			"name" : "[CC] UTI",
+			"expression" : {
+				"items" : []
 			}
 		}
 	],
@@ -647,14 +637,14 @@
 	"InclusionRules" : [],
 	"EndStrategy" : {
 		"DateOffset" : {
-			"DateField" : "EndDate",
-			"Offset" : 0
+			"DateField" : "StartDate",
+			"Offset" : 1
 		}
 	},
 	"CensoringCriteria" : [],
 	"CollapseSettings" : {
 		"CollapseType" : "ERA",
-		"EraPad" : 0
+		"EraPad" : 30
 	},
 	"CensorWindow" : {}
 }

@@ -27,15 +27,13 @@ cohortTableName <- "ARPA_UTI_study"
 # Create the connection details for your CDM
 # More details on how to do this are found here:
 # https://ohdsi.github.io/DatabaseConnector/reference/createConnectionDetails.html
-# connectionDetails <- DatabaseConnector::createConnectionDetails(
-#   dbms = Sys.getenv("DBMS_TYPE"),
-#   connectionString = Sys.getenv("CONNECTION_STRING"),
-#   user = Sys.getenv("DBMS_USERNAME"),
-#   password = Sys.getenv("DBMS_PASSWORD")
-# )
+connectionDetails <- createConnectionDetails(dbms="sql server",
+                                             pathToDriver = "~/Documents/temp/jdbcDrivers/",
+                                             server="dbmi-omop.mc.cumc.columbia.edu",  
+                                             extraSettings="authenticationScheme=JavaKerberos")
 
 # You can use this snippet to test your connection
-#conn <- DatabaseConnector::connect(connectionDetails)
+conn <- DatabaseConnector::connect(connectionDetails)
 #DatabaseConnector::disconnect(conn)
 
 ##=========== END OF INPUTS ==========

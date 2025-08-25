@@ -5,27 +5,32 @@ CREATE TABLE #Codesets (
 ;
 
 INSERT INTO #Codesets (codeset_id, concept_id)
-SELECT 0 as codeset_id, c.concept_id FROM (select distinct I.concept_id FROM
+SELECT 1 as codeset_id, c.concept_id FROM (select distinct I.concept_id FROM
 ( 
-  select concept_id from @vocabulary_database_schema.CONCEPT where concept_id in (81902,77340,4126297,195588)
+  select concept_id from @vocabulary_database_schema.CONCEPT where concept_id in (81902,4167328,77340,4265485,4126297,195588)
 UNION  select c.concept_id
   from @vocabulary_database_schema.CONCEPT c
   join @vocabulary_database_schema.CONCEPT_ANCESTOR ca on c.concept_id = ca.descendant_concept_id
-  and ca.ancestor_concept_id in (81902,77340,4126297,195588)
+  and ca.ancestor_concept_id in (81902,4167328,77340,4265485,4126297,195588)
   and c.invalid_reason is null
 
 ) I
 LEFT JOIN
 (
-  select concept_id from @vocabulary_database_schema.CONCEPT where concept_id in (4167328,4265485,198806,4126267,194997,4077499,442345,4062493,45757237,36714969,195743,201353,4047937,201792,4128384,78357,195313,197919,439349,4227291,4060312,4127564,4126141,4127565,4207186,4207190,434557,432251,36102152,433417,36102938,4060296)
+  select concept_id from @vocabulary_database_schema.CONCEPT where concept_id in (198806,4126267,194997,4077499,442345,4062493,45757237,36714969,195743,201353,4047937,201792,4128384,78357,195313,197919,439349,4227291,4060312,4127564,4126141,4127565,4207186,4207190,434557,432251,36102152,433417,36102938)
 UNION  select c.concept_id
   from @vocabulary_database_schema.CONCEPT c
   join @vocabulary_database_schema.CONCEPT_ANCESTOR ca on c.concept_id = ca.descendant_concept_id
-  and ca.ancestor_concept_id in (4167328,4265485,198806,4126267,4077499,442345,4062493,45757237,36714969,195743,201353,4047937,201792,78357,195313,197919,4127564,4127565,4207186,4207190,434557,432251,36102152,433417,36102938)
+  and ca.ancestor_concept_id in (198806,4126267,4077499,442345,4062493,45757237,36714969,195743,201353,4047937,201792,78357,195313,197919,4127564,4127565,4207186,4207190,434557,432251,36102152,433417,36102938)
   and c.invalid_reason is null
 
 ) E ON I.concept_id = E.concept_id
 WHERE E.concept_id is null
+) C UNION ALL 
+SELECT 2 as codeset_id, c.concept_id FROM (select distinct I.concept_id FROM
+( 
+  select concept_id from @vocabulary_database_schema.CONCEPT where 0=1
+) I
 ) C;
 
 UPDATE STATISTICS #Codesets;
@@ -52,7 +57,7 @@ FROM
 (
   SELECT co.person_id,co.condition_occurrence_id,co.condition_concept_id,co.visit_occurrence_id,co.condition_start_date as start_date, COALESCE(co.condition_end_date, DATEADD(day,1,co.condition_start_date)) as end_date 
   FROM @cdm_database_schema.CONDITION_OCCURRENCE co
-  JOIN #Codesets cs on (co.condition_concept_id = cs.concept_id and cs.codeset_id = 0)
+  JOIN #Codesets cs on (co.condition_concept_id = cs.concept_id and cs.codeset_id = 2)
 ) C
 
 
@@ -96,7 +101,7 @@ WHERE Results.ordinal = 1
 -- date offset strategy
 
 select event_id, person_id, 
-  case when DATEADD(day,0,end_date) > op_end_date then op_end_date else DATEADD(day,0,end_date) end as end_date
+  case when DATEADD(day,1,start_date) > op_end_date then op_end_date else DATEADD(day,1,start_date) end as end_date
 INTO #strategy_ends
 from #included_events;
 
@@ -130,7 +135,7 @@ from ( --cteEnds
 	JOIN ( -- cteEndDates
     SELECT
       person_id
-      , DATEADD(day,-1 * 0, event_date)  as end_date
+      , DATEADD(day,-1 * 30, event_date)  as end_date
     FROM
     (
       SELECT
@@ -151,7 +156,7 @@ from ( --cteEnds
 
         SELECT
           person_id
-          , DATEADD(day,0,end_date) as end_date
+          , DATEADD(day,30,end_date) as end_date
           , 1 AS event_type
         FROM #cohort_rows
       ) RAWDATA

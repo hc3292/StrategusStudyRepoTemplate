@@ -22,8 +22,10 @@ baseUrl <- "https://nypdevops1.sis.nyp.org/api/WebAPI/"
 cohortDefinitionSet <- ROhdsiWebApi::exportCohortDefinitionSet(
   baseUrl = baseUrl,
   cohortIds = c(
-    11721, # sglt2i
-    11722, # sulfonylurea
+    11726, # sglt2i (metformin doesn't matter)
+    11725, # sulfonylurea
+    11730, # dpp4
+    11728, # glp1
     11708, # T2DM
     11869 #UTI
   ),
@@ -31,8 +33,10 @@ cohortDefinitionSet <- ROhdsiWebApi::exportCohortDefinitionSet(
 )
 
 # Rename cohorts
-cohortDefinitionSet[cohortDefinitionSet$cohortId == 11721,]$cohortName <- "SGLT2i"
-cohortDefinitionSet[cohortDefinitionSet$cohortId == 11722,]$cohortName <- "SU"
+cohortDefinitionSet[cohortDefinitionSet$cohortId == 11726,]$cohortName <- "SGLT2i"
+cohortDefinitionSet[cohortDefinitionSet$cohortId == 11725,]$cohortName <- "SU"
+cohortDefinitionSet[cohortDefinitionSet$cohortId == 11730,]$cohortName <- "DPP4"
+cohortDefinitionSet[cohortDefinitionSet$cohortId == 11728,]$cohortName <- "GLP1"
 cohortDefinitionSet[cohortDefinitionSet$cohortId == 11708,]$cohortName <- "T2DM"
 cohortDefinitionSet[cohortDefinitionSet$cohortId == 11869,]$cohortName <- "UTI"
 
