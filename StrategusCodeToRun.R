@@ -20,7 +20,7 @@ Sys.setenv("VROOM_THREADS"=1) # Sets the number of threads to 1 to avoid deadloc
 cdmDatabaseSchema <- "ohdsi_cumc_2025q2r1_deid.dbo"
 workDatabaseSchema <- "ohdsi_cumc_2025q2r1_deid.results"
 outputLocation <- file.path(getwd(), "results")
-databaseName <- "CUMC" # Only used as a folder name for results from the study
+databaseName <- "CUMC" # "MDCR" # Only used as a folder name for results from the study
 minCellCount <- 5
 cohortTableName <- "ARPA_UTI_study"
 

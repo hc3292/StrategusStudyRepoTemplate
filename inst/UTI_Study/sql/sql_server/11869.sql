@@ -29,8 +29,25 @@ WHERE E.concept_id is null
 ) C UNION ALL 
 SELECT 2 as codeset_id, c.concept_id FROM (select distinct I.concept_id FROM
 ( 
-  select concept_id from @vocabulary_database_schema.CONCEPT where 0=1
+  select concept_id from @vocabulary_database_schema.CONCEPT where concept_id in (81902,4167328,4265485,4126297,195588,4063038)
+UNION  select c.concept_id
+  from @vocabulary_database_schema.CONCEPT c
+  join @vocabulary_database_schema.CONCEPT_ANCESTOR ca on c.concept_id = ca.descendant_concept_id
+  and ca.ancestor_concept_id in (81902,4167328,4265485,4126297,195588,4063038)
+  and c.invalid_reason is null
+
 ) I
+LEFT JOIN
+(
+  select concept_id from @vocabulary_database_schema.CONCEPT where concept_id in (198806,4126267,194997,4077499,442345,4062493,45757237,36714969,195743,201353,4047937,201792,4128384,78357,195313,197919,439349,4227291,4060312,4127564,4126141,4127565,4207186,4207190,434557,432251,36102152,433417,36102938,77340)
+UNION  select c.concept_id
+  from @vocabulary_database_schema.CONCEPT c
+  join @vocabulary_database_schema.CONCEPT_ANCESTOR ca on c.concept_id = ca.descendant_concept_id
+  and ca.ancestor_concept_id in (198806,4126267,4077499,442345,4062493,45757237,36714969,195743,201353,4047937,201792,78357,195313,197919,4127564,4127565,4207186,4207190,434557,432251,36102152,433417,36102938)
+  and c.invalid_reason is null
+
+) E ON I.concept_id = E.concept_id
+WHERE E.concept_id is null
 ) C;
 
 UPDATE STATISTICS #Codesets;
